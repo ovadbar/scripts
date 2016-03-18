@@ -1,0 +1,13 @@
+<include>
+    <!--
+	Incoming fax is received, sendfax.pl is executed
+    -->
+    <extension name="fax_receive">
+      <condition field="destination_number" expression="^(fax|9178)$">
+	<action application="set" data="api_hangup_hook=perl /usr/local/freeswitch/scripts/sendfax.pl ${caller_id_number:-10}"/>
+        <action application="set" data="ignore_early_media=true"/>
+	<action application="rxfax" data="/tmp/${caller_id_number:-10}.tif"/>
+	<action application="hangup"/>
+      </condition>
+    </extension>
+</include>
