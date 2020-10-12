@@ -1,2 +1,5 @@
 # Macro to GoSub replacement
 perl -pi.bak -e 's/Macro\((.*),(.*)\)/GoSub\(sub$1,start,1\($2\)\)/g' extensions.conf
+
+# Get low MOS from syslog
+perl -ne 'print if grep {$_<3} /lowest MOS\s(\d)/g' /var/log/syslog
